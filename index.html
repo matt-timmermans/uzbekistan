@@ -244,7 +244,7 @@ const cal = [{
   "sights": ["Itchan Kala golden hour", "Kalta Minor minaret", "Kunha Ark sunset"],
   "tips": "STAY INSIDE WALLS. Try shivit oshi at Zarafshon Cafe.",
   "cost": "Train BOOKED",
-  "hotel": "Inside Itchan Kala (TBD)"
+  "hotel": "Khiva Mahliyo"
 }, {
   "d": 22,
   "m": "jul",
@@ -257,19 +257,19 @@ const cal = [{
   "sights": ["Juma Mosque", "Pakhlavan Mahmud", "Tash-Hovli Palace", "Islam Khoja Minaret", "Terrassa dinner"],
   "tips": "Before 9am and after sunset: walls are yours. Buy 2-day ticket.",
   "cost": "Ticket $10",
-  "hotel": "Inside Itchan Kala (TBD)"
+  "hotel": "Khiva Mahliyo"
 }, {
   "d": 23,
   "m": "jul",
-  "label": "To Bishkek",
-  "sub": "Train + flight",
+  "label": "Fly to Bishkek",
+  "sub": "Urgench > Tashkent > Bishkek",
   "country": "kg",
   "type": "travel",
   "icon": "plane",
-  "detail": "Train to Tashkent (~5-6 hrs). Farewell plov. Evening flight to Bishkek. New SIM. Taxi to apartment.",
-  "sights": ["Last Uzbek plov", "First Tian Shan views"],
-  "tips": "16 days in UZ (30 allowed). 60 days visa-free in KG.",
-  "cost": "Train $25 / Flight $40",
+  "detail": "Morning flight HY 52 Urgench (UGC) 09:20 > Tashkent (TAS) 10:40. Long layover in Tashkent (grab a farewell plov near the airport or in town). Then HY 777 Tashkent 15:20 > Bishkek (BSZ) 17:30. New SIM at BSZ, taxi to apartment. First impression of Bishkek: green, mountains from the streets.",
+  "sights": ["Farewell plov during the Tashkent layover", "First Tian Shan views from Bishkek"],
+  "tips": "Both flights booked ($219 total). ~4.5 hr layover in Tashkent (10:40-15:20) - enough to leave the airport for lunch if you want, or relax airside. Note terminals: arrive T3, depart T2. 60 days visa-free in Kyrgyzstan.",
+  "cost": "Flights BOOKED ($219)",
   "hotel": "Apartment (TBD)"
 }, {
   "d": 24,
@@ -547,13 +547,13 @@ const nights = [{
 }, {
   "m": "jul",
   "d": 21,
-  "label": "Khiva (in walls)",
+  "label": "Khiva Mahliyo",
   "country": "uz",
   "trek": false
 }, {
   "m": "jul",
   "d": 22,
-  "label": "Khiva (in walls)",
+  "label": "Khiva Mahliyo",
   "country": "uz",
   "trek": false
 }, {
@@ -687,13 +687,13 @@ const bookings = [{
   "booked": true,
   "trek": false
 }, {
-  "label": "Khiva (in walls)",
+  "label": "Khiva Mahliyo",
   "country": "uz",
   "sM": "jul",
   "sD": 21,
   "eM": "jul",
   "eD": 23,
-  "booked": false,
+  "booked": true,
   "trek": false
 }, {
   "label": "Bishkek apt",
@@ -798,15 +798,15 @@ const stays = [{
   "bookAdvance": false
 }, {
   "city": "Khiva",
-  "hotel": "Inside Itchan Kala (TBD)",
+  "hotel": "Khiva Mahliyo",
   "country": "Uzbekistan",
   "checkin": "July 21",
   "checkout": "July 23",
   "nights": 2,
-  "price": "$25-40/night",
-  "booked": false,
-  "note": "MUST stay inside walled city. Limited rooms, book ahead.",
-  "bookAdvance": true
+  "price": "BOOKED (44 euro)",
+  "booked": true,
+  "note": "2 nights. Inside the walled city, exactly right for golden hour and empty early mornings.",
+  "bookAdvance": false
 }, {
   "city": "Bishkek",
   "hotel": "Apartment (TBD)",
@@ -865,9 +865,9 @@ const stays = [{
 }];
 const budgetSummary = {
   "flights": {
-    "label": "Tashkent-Bishkek flight",
-    "low": 30,
-    "high": 60
+    "label": "Urgench-Tashkent-Bishkek flights (BOOKED)",
+    "low": 219,
+    "high": 219
   },
   "trains": {
     "label": "Trains UZ (incl. Khiva bullet)",
