@@ -13,18 +13,30 @@
 <style>
   html, body { margin:0; padding:0; background:#0a0a12; }
   #root { min-height:100vh; }
-  .loading { color:#e9b344; font-family:sans-serif; text-align:center; padding-top:40vh; }
+  .msg { color:#e9b344; font-family:sans-serif; text-align:center; padding:40vh 24px 0; font-size:15px; }
+  .err { color:#e94560; font-family:monospace; font-size:12px; padding:20vh 20px 0; white-space:pre-wrap; word-break:break-word; }
 </style>
-<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 </head>
 <body>
-<div id="root"><div class="loading">Loading your itinerary...</div></div>
+<div id="root"><div class="msg">Loading your itinerary...</div></div>
 <script>
-import { jsxDEV as _jsxDEV } from "react/jsx-dev-runtime";
-const {
-  useState
-} = React;
+window.onerror = function(m, s, l) {
+  var r = document.getElementById("root");
+  if (r) r.innerHTML = '<div class="err">Error:\n\n' + m + '\n(line ' + l + ')</div>';
+  return false;
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+<script>
+(function start(a){
+  a = a || 0;
+  if (typeof React === "undefined" || typeof ReactDOM === "undefined") {
+    if (a > 40) { document.getElementById("root").innerHTML = '<div class="err">Could not load React from the CDN. Check connection and reload.</div>'; return; }
+    return setTimeout(function(){ start(a+1); }, 150);
+  }
+  try {
+    var useState = React.useState;
 const cal = [{
   "d": 6,
   "m": "jul",
@@ -1038,15 +1050,14 @@ function App() {
   const selNight = nightMap[key(sel.m, sel.d)];
   const tL = Object.values(budgetSummary).reduce((s, v) => s + v.low, 0);
   const tH = Object.values(budgetSummary).reduce((s, v) => s + v.high, 0);
-  return /*#__PURE__*/_jsxDEV("div", {
+  return /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: "'Crimson Pro','Georgia',serif",
       background: "linear-gradient(180deg,#0a0a12 0%,#12121f 45%,#1a1a2e 100%)",
       color: "#e8e0d4",
       minHeight: "100vh"
-    },
-    children: [/*#__PURE__*/_jsxDEV("style", {
-      children: `
+    }
+  }, /*#__PURE__*/React.createElement("style", null, `
         @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600;700&family=DM+Sans:wght@400;500;600&display=swap');
         *{box-sizing:border-box;margin:0;padding:0}
         .fb{animation:fi .3s ease}
@@ -1058,656 +1069,595 @@ function App() {
         .calscroll::-webkit-scrollbar{height:6px}
         .calscroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:3px}
         .daycell:hover{background:rgba(255,255,255,.06) !important}
-      `
-    }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
+      `), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "34px 24px 14px",
+      textAlign: "center"
+    }
+  }, /*#__PURE__*/React.createElement("h1", {
+    style: {
+      fontSize: "clamp(24px,5vw,34px)",
+      fontWeight: 300,
+      lineHeight: 1.2,
+      marginBottom: "8px",
+      background: "linear-gradient(135deg,#e8e0d4 0%,#e9b344 50%,#e94560 100%)",
+      backgroundSize: "200% auto",
+      WebkitBackgroundClip: "text",
+      WebkitTextFillColor: "transparent",
+      animation: "sh 6s linear infinite"
+    }
+  }, "The Silk Road Month"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      ...dm,
+      fontSize: "12px",
+      color: "rgba(232,224,212,.45)"
+    }
+  }, "July 6 ", "\u2014", " Aug 6, 2026"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "center",
+      gap: "12px",
+      marginTop: "10px",
+      flexWrap: "wrap"
+    }
+  }, [["uz", "Uzbekistan", "14d"], ["tj", "Tajikistan", "2d"], ["kg", "Kyrgyzstan", "14d"]].map(([k, n, d]) => /*#__PURE__*/React.createElement("div", {
+    key: k,
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: "5px",
+      ...dm,
+      fontSize: "11px",
+      color: "rgba(232,224,212,.5)"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: "8px",
+      height: "8px",
+      borderRadius: "50%",
+      background: cc[k]
+    }
+  }), n, " (", d, ")")))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "center",
+      gap: "8px",
+      padding: "8px 16px 18px",
+      maxWidth: "640px",
+      margin: "0 auto"
+    }
+  }, [["calendar", "Calendar"], ["stays", "Stays & Booking"], ["budget", "Budget"]].map(([id, l]) => /*#__PURE__*/React.createElement("div", {
+    key: id,
+    className: "tb " + (tab === id ? "ta" : ""),
+    style: dm,
+    onClick: () => setTab(id)
+  }, l))), tab === "calendar" && /*#__PURE__*/React.createElement("div", {
+    style: {
+      maxWidth: "920px",
+      margin: "0 auto",
+      padding: "0 12px 24px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "calscroll",
+    style: {
+      overflowX: "auto",
+      paddingBottom: "8px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      minWidth: "720px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "repeat(7,1fr)",
+      gap: "4px",
+      marginBottom: "6px"
+    }
+  }, ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((d, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    style: {
+      textAlign: "center",
+      ...dm,
+      fontSize: "10px",
+      letterSpacing: "1px",
+      textTransform: "uppercase",
+      color: "rgba(232,224,212,.35)",
+      paddingBottom: "2px"
+    }
+  }, d))), weeks.map((week, wi) => {
+    const {
+      segs,
+      laneCount
+    } = weekBars(week);
+    const barBand = laneCount * LANE_H;
+    const cellMin = DATE_BAND + barBand + 40;
+    return /*#__PURE__*/React.createElement("div", {
+      key: wi,
       style: {
-        padding: "34px 24px 14px",
-        textAlign: "center"
-      },
-      children: [/*#__PURE__*/_jsxDEV("h1", {
+        position: "relative",
+        marginBottom: "4px"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "grid",
+        gridTemplateColumns: "repeat(7,1fr)",
+        gap: "4px"
+      }
+    }, week.map((cell, ci) => {
+      const active = inTrip(cell.m, cell.d);
+      const info = calMap[key(cell.m, cell.d)];
+      const isSel = sel.m === cell.m && sel.d === cell.d;
+      const col = info ? cc[info.country] : "rgba(255,255,255,.1)";
+      return /*#__PURE__*/React.createElement("div", {
+        key: ci,
+        className: active ? "daycell" : "",
+        onClick: () => active && setSel({
+          m: cell.m,
+          d: cell.d
+        }),
         style: {
-          fontSize: "clamp(24px,5vw,34px)",
-          fontWeight: 300,
-          lineHeight: 1.2,
-          marginBottom: "8px",
-          background: "linear-gradient(135deg,#e8e0d4 0%,#e9b344 50%,#e94560 100%)",
-          backgroundSize: "200% auto",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          animation: "sh 6s linear infinite"
-        },
-        children: "The Silk Road Month"
-      }, void 0, false), /*#__PURE__*/_jsxDEV("p", {
+          minHeight: cellMin + "px",
+          borderRadius: "8px",
+          background: isSel ? col + "1f" : active ? "rgba(255,255,255,.03)" : "transparent",
+          border: isSel ? "2px solid " + col : active ? "1px solid rgba(255,255,255,.07)" : "1px solid transparent",
+          opacity: active ? 1 : 0.22,
+          cursor: active ? "pointer" : "default",
+          padding: "6px 7px 7px",
+          position: "relative",
+          transition: "all .15s ease"
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center"
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        style: {
+          fontSize: "9px"
+        }
+      }, info ? ICON[info.icon] : ""), /*#__PURE__*/React.createElement("span", {
         style: {
           ...dm,
           fontSize: "12px",
-          color: "rgba(232,224,212,.45)"
-        },
-        children: ["July 6 ", "\u2014", " Aug 6, 2026"]
-      }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-        style: {
-          display: "flex",
+          fontWeight: isSel || isToday(cell.m, cell.d) ? 700 : 500,
+          color: isToday(cell.m, cell.d) ? "#0a0a12" : isSel ? col : "rgba(232,224,212,.7)",
+          background: isToday(cell.m, cell.d) ? "#e9b344" : "transparent",
+          borderRadius: "999px",
+          minWidth: "18px",
+          height: "18px",
+          display: "inline-flex",
+          alignItems: "center",
           justifyContent: "center",
-          gap: "12px",
-          marginTop: "10px",
-          flexWrap: "wrap"
-        },
-        children: [["uz", "Uzbekistan", "14d"], ["tj", "Tajikistan", "2d"], ["kg", "Kyrgyzstan", "14d"]].map(([k, n, d]) => /*#__PURE__*/_jsxDEV("div", {
-          style: {
-            display: "flex",
-            alignItems: "center",
-            gap: "5px",
-            ...dm,
-            fontSize: "11px",
-            color: "rgba(232,224,212,.5)"
-          },
-          children: [/*#__PURE__*/_jsxDEV("div", {
-            style: {
-              width: "8px",
-              height: "8px",
-              borderRadius: "50%",
-              background: cc[k]
-            }
-          }, void 0, false), n, " (", d, ")"]
-        }, k, true))
-      }, void 0, false)]
-    }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-      style: {
-        display: "flex",
-        justifyContent: "center",
-        gap: "8px",
-        padding: "8px 16px 18px",
-        maxWidth: "640px",
-        margin: "0 auto"
-      },
-      children: [["calendar", "Calendar"], ["stays", "Stays & Booking"], ["budget", "Budget"]].map(([id, l]) => /*#__PURE__*/_jsxDEV("div", {
-        className: "tb " + (tab === id ? "ta" : ""),
-        style: dm,
-        onClick: () => setTab(id),
-        children: l
-      }, id, false))
-    }, void 0, false), tab === "calendar" && /*#__PURE__*/_jsxDEV("div", {
-      style: {
-        maxWidth: "920px",
-        margin: "0 auto",
-        padding: "0 12px 24px"
-      },
-      children: [/*#__PURE__*/_jsxDEV("div", {
-        className: "calscroll",
+          padding: "0 5px"
+        }
+      }, cell.d === 1 && cell.m === "aug" ? "1 Aug" : cell.d)), /*#__PURE__*/React.createElement("div", {
         style: {
-          overflowX: "auto",
-          paddingBottom: "8px"
-        },
-        children: /*#__PURE__*/_jsxDEV("div", {
-          style: {
-            minWidth: "720px"
-          },
-          children: [/*#__PURE__*/_jsxDEV("div", {
-            style: {
-              display: "grid",
-              gridTemplateColumns: "repeat(7,1fr)",
-              gap: "4px",
-              marginBottom: "6px"
-            },
-            children: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((d, i) => /*#__PURE__*/_jsxDEV("div", {
-              style: {
-                textAlign: "center",
-                ...dm,
-                fontSize: "10px",
-                letterSpacing: "1px",
-                textTransform: "uppercase",
-                color: "rgba(232,224,212,.35)",
-                paddingBottom: "2px"
-              },
-              children: d
-            }, i, false))
-          }, void 0, false), weeks.map((week, wi) => {
-            const {
-              segs,
-              laneCount
-            } = weekBars(week);
-            const barBand = laneCount * LANE_H;
-            const cellMin = DATE_BAND + barBand + 40;
-            return /*#__PURE__*/_jsxDEV("div", {
-              style: {
-                position: "relative",
-                marginBottom: "4px"
-              },
-              children: [/*#__PURE__*/_jsxDEV("div", {
-                style: {
-                  display: "grid",
-                  gridTemplateColumns: "repeat(7,1fr)",
-                  gap: "4px"
-                },
-                children: week.map((cell, ci) => {
-                  const active = inTrip(cell.m, cell.d);
-                  const info = calMap[key(cell.m, cell.d)];
-                  const isSel = sel.m === cell.m && sel.d === cell.d;
-                  const col = info ? cc[info.country] : "rgba(255,255,255,.1)";
-                  return /*#__PURE__*/_jsxDEV("div", {
-                    className: active ? "daycell" : "",
-                    onClick: () => active && setSel({
-                      m: cell.m,
-                      d: cell.d
-                    }),
-                    style: {
-                      minHeight: cellMin + "px",
-                      borderRadius: "8px",
-                      background: isSel ? col + "1f" : active ? "rgba(255,255,255,.03)" : "transparent",
-                      border: isSel ? "2px solid " + col : active ? "1px solid rgba(255,255,255,.07)" : "1px solid transparent",
-                      opacity: active ? 1 : 0.22,
-                      cursor: active ? "pointer" : "default",
-                      padding: "6px 7px 7px",
-                      position: "relative",
-                      transition: "all .15s ease"
-                    },
-                    children: [/*#__PURE__*/_jsxDEV("div", {
-                      style: {
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center"
-                      },
-                      children: [/*#__PURE__*/_jsxDEV("span", {
-                        style: {
-                          fontSize: "9px"
-                        },
-                        children: info ? ICON[info.icon] : ""
-                      }, void 0, false), /*#__PURE__*/_jsxDEV("span", {
-                        style: {
-                          ...dm,
-                          fontSize: "12px",
-                          fontWeight: isSel || isToday(cell.m, cell.d) ? 700 : 500,
-                          color: isToday(cell.m, cell.d) ? "#0a0a12" : isSel ? col : "rgba(232,224,212,.7)",
-                          background: isToday(cell.m, cell.d) ? "#e9b344" : "transparent",
-                          borderRadius: "999px",
-                          minWidth: "18px",
-                          height: "18px",
-                          display: "inline-flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          padding: "0 5px"
-                        },
-                        children: cell.d === 1 && cell.m === "aug" ? "1 Aug" : cell.d
-                      }, void 0, false)]
-                    }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-                      style: {
-                        height: barBand + "px"
-                      }
-                    }, void 0, false), info && /*#__PURE__*/_jsxDEV("div", {
-                      style: {
-                        ...dm,
-                        fontSize: "10px",
-                        lineHeight: 1.25,
-                        color: "rgba(232,224,212,.85)",
-                        marginTop: "2px",
-                        overflow: "hidden",
-                        display: "-webkit-box",
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: "vertical"
-                      },
-                      children: [/*#__PURE__*/_jsxDEV("span", {
-                        style: {
-                          display: "inline-block",
-                          width: "5px",
-                          height: "5px",
-                          borderRadius: "50%",
-                          background: col,
-                          marginRight: "4px",
-                          verticalAlign: "middle"
-                        }
-                      }, void 0, false), info.label]
-                    }, void 0, true)]
-                  }, ci, true);
-                })
-              }, void 0, false), segs.map((seg, si) => {
-                const span = seg.end - seg.start + 1;
-                const leftPct = seg.start / 7 * 100;
-                const widthPct = span / 7 * 100;
-                const col = cc[seg.country];
-                const top = DATE_BAND + 2 + seg.lane * LANE_H;
-                return /*#__PURE__*/_jsxDEV("div", {
-                  title: seg.label,
-                  style: {
-                    position: "absolute",
-                    top: top + "px",
-                    left: "calc(" + leftPct + "% + 3px)",
-                    width: "calc(" + widthPct + "% - 6px)",
-                    height: LANE_H - 3 + "px",
-                    background: seg.booked ? col + "33" : col + "12",
-                    border: "1px " + (seg.booked ? "solid" : "dashed") + " " + col + (seg.booked ? "88" : "99"),
-                    borderRadius: "5px",
-                    display: "flex",
-                    alignItems: "center",
-                    paddingLeft: "6px",
-                    pointerEvents: "none",
-                    overflow: "hidden"
-                  },
-                  children: /*#__PURE__*/_jsxDEV("span", {
-                    style: {
-                      ...dm,
-                      fontSize: "9px",
-                      fontWeight: 600,
-                      color: col,
-                      whiteSpace: "nowrap",
-                      textOverflow: "ellipsis",
-                      overflow: "hidden"
-                    },
-                    children: [seg.booked ? "\u2713 " : "", seg.trek ? "\uD83D\uDC0E " : "", seg.label]
-                  }, void 0, true)
-                }, si, false);
-              })]
-            }, wi, true);
-          })]
-        }, void 0, true)
-      }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
+          height: barBand + "px"
+        }
+      }), info && /*#__PURE__*/React.createElement("div", {
         style: {
           ...dm,
           fontSize: "10px",
-          color: "rgba(232,224,212,.3)",
-          textAlign: "center",
-          margin: "6px 0 14px",
-          lineHeight: 1.6
-        },
-        children: ["Solid bar = booked ", "\u00b7", " dashed = still to book ", "\u00b7", " changeover day shows both hotels ", "\u00b7", " tap any day for the plan"]
-      }, void 0, true), selDay && /*#__PURE__*/_jsxDEV("div", {
-        className: "fb",
+          lineHeight: 1.25,
+          color: "rgba(232,224,212,.85)",
+          marginTop: "2px",
+          overflow: "hidden",
+          display: "-webkit-box",
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: "vertical"
+        }
+      }, /*#__PURE__*/React.createElement("span", {
         style: {
-          background: "linear-gradient(135deg,#1a1a2e," + cc[selDay.country] + "12)",
-          border: "1px solid " + cc[selDay.country] + "33",
-          borderRadius: "14px",
-          padding: "18px",
-          maxWidth: "560px",
-          margin: "0 auto"
-        },
-        children: [/*#__PURE__*/_jsxDEV("div", {
-          style: {
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-            marginBottom: "10px"
-          },
-          children: [/*#__PURE__*/_jsxDEV("div", {
-            style: {
-              flex: 1
-            },
-            children: [/*#__PURE__*/_jsxDEV("div", {
-              style: {
-                ...dm,
-                fontSize: "10px",
-                letterSpacing: "2px",
-                textTransform: "uppercase",
-                color: cc[selDay.country],
-                marginBottom: "4px"
-              },
-              children: [sel.m === "jul" ? "July " + sel.d : "Aug " + sel.d, " ", "\u00b7", " ", cn[selDay.country]]
-            }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-              style: {
-                fontSize: "20px",
-                fontWeight: 600,
-                lineHeight: 1.2,
-                marginBottom: "2px"
-              },
-              children: [ICON[selDay.icon], " ", selDay.label]
-            }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-              style: {
-                ...dm,
-                fontSize: "12px",
-                color: "rgba(232,224,212,.5)"
-              },
-              children: selDay.sub
-            }, void 0, false)]
-          }, void 0, true), selNight && /*#__PURE__*/_jsxDEV("div", {
-            style: {
-              ...dm,
-              fontSize: "10px",
-              color: "rgba(232,224,212,.45)",
-              textAlign: "right",
-              maxWidth: "120px",
-              lineHeight: 1.4
-            },
-            children: ["\uD83C\uDFE8", " ", selNight.label]
-          }, void 0, true)]
-        }, void 0, true), /*#__PURE__*/_jsxDEV("p", {
-          style: {
-            fontSize: "13px",
-            lineHeight: 1.7,
-            color: "rgba(232,224,212,.8)",
-            marginBottom: "12px"
-          },
-          children: selDay.detail
-        }, void 0, false), selDay.sights && selDay.sights.length > 0 && /*#__PURE__*/_jsxDEV("div", {
-          style: {
-            background: "rgba(15,52,96,.2)",
-            border: "1px solid rgba(15,52,96,.3)",
-            borderRadius: "8px",
-            padding: "10px 12px",
-            marginBottom: "10px"
-          },
-          children: [/*#__PURE__*/_jsxDEV("div", {
-            style: {
-              ...dm,
-              fontSize: "9px",
-              letterSpacing: "2px",
-              textTransform: "uppercase",
-              color: "#4a90d9",
-              marginBottom: "6px"
-            },
-            children: "Don't miss"
-          }, void 0, false), selDay.sights.map((s, j) => /*#__PURE__*/_jsxDEV("div", {
-            style: {
-              fontSize: "11.5px",
-              lineHeight: 1.4,
-              color: "rgba(232,224,212,.65)",
-              ...dm,
-              paddingLeft: "10px",
-              borderLeft: "2px solid rgba(74,144,217,.25)",
-              marginBottom: j < selDay.sights.length - 1 ? "5px" : 0
-            },
-            children: s
-          }, j, false))]
-        }, void 0, true), selDay.tips && /*#__PURE__*/_jsxDEV("div", {
-          style: {
-            background: "rgba(233,179,68,.08)",
-            border: "1px solid rgba(233,179,68,.15)",
-            borderRadius: "8px",
-            padding: "10px 12px",
-            marginBottom: selDay.cost ? "10px" : 0
-          },
-          children: [/*#__PURE__*/_jsxDEV("div", {
-            style: {
-              ...dm,
-              fontSize: "9px",
-              letterSpacing: "2px",
-              textTransform: "uppercase",
-              color: "#e9b344",
-              marginBottom: "5px"
-            },
-            children: "Tip"
-          }, void 0, false), /*#__PURE__*/_jsxDEV("p", {
-            style: {
-              fontSize: "11.5px",
-              lineHeight: 1.5,
-              color: "rgba(232,224,212,.7)",
-              ...dm
-            },
-            children: selDay.tips
-          }, void 0, false)]
-        }, void 0, true), selDay.cost && /*#__PURE__*/_jsxDEV("div", {
-          style: {
-            ...dm,
-            fontSize: "11px",
-            color: "rgba(232,224,212,.4)"
-          },
-          children: ["Est. cost: ", /*#__PURE__*/_jsxDEV("span", {
-            style: {
-              color: "#e9b344"
-            },
-            children: selDay.cost
-          }, void 0, false)]
-        }, void 0, true)]
-      }, sel.m + "-" + sel.d, true)]
-    }, void 0, true), tab === "stays" && /*#__PURE__*/_jsxDEV("div", {
-      style: {
-        padding: "12px 16px 48px",
-        maxWidth: "640px",
-        margin: "0 auto"
-      },
-      children: [/*#__PURE__*/_jsxDEV("p", {
+          display: "inline-block",
+          width: "5px",
+          height: "5px",
+          borderRadius: "50%",
+          background: col,
+          marginRight: "4px",
+          verticalAlign: "middle"
+        }
+      }), info.label));
+    })), segs.map((seg, si) => {
+      const span = seg.end - seg.start + 1;
+      const leftPct = seg.start / 7 * 100;
+      const widthPct = span / 7 * 100;
+      const col = cc[seg.country];
+      const top = DATE_BAND + 2 + seg.lane * LANE_H;
+      return /*#__PURE__*/React.createElement("div", {
+        key: si,
+        title: seg.label,
+        style: {
+          position: "absolute",
+          top: top + "px",
+          left: "calc(" + leftPct + "% + 3px)",
+          width: "calc(" + widthPct + "% - 6px)",
+          height: LANE_H - 3 + "px",
+          background: seg.booked ? col + "33" : col + "12",
+          border: "1px " + (seg.booked ? "solid" : "dashed") + " " + col + (seg.booked ? "88" : "99"),
+          borderRadius: "5px",
+          display: "flex",
+          alignItems: "center",
+          paddingLeft: "6px",
+          pointerEvents: "none",
+          overflow: "hidden"
+        }
+      }, /*#__PURE__*/React.createElement("span", {
         style: {
           ...dm,
-          fontSize: "12px",
-          color: "rgba(232,224,212,.45)",
-          marginBottom: "16px",
-          lineHeight: 1.6,
-          textAlign: "center"
-        },
-        children: "Bishkek apartment = home base for all of Kyrgyzstan. Leave your bag there during the trek + Issyk-Kul loop."
-      }, void 0, false), stays.map((s, i) => {
-        const col = ccStay[s.country] || "#e8e0d4";
-        return /*#__PURE__*/_jsxDEV("div", {
-          style: {
-            background: s.booked ? "rgba(233,179,68,.06)" : "rgba(255,255,255,.03)",
-            border: "1px solid " + (s.booked ? "rgba(233,179,68,.2)" : "rgba(255,255,255,.06)"),
-            borderRadius: "12px",
-            padding: "14px 16px",
-            marginBottom: "10px"
-          },
-          children: [/*#__PURE__*/_jsxDEV("div", {
-            style: {
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "flex-start",
-              marginBottom: "4px"
-            },
-            children: [/*#__PURE__*/_jsxDEV("div", {
-              children: [/*#__PURE__*/_jsxDEV("div", {
-                style: {
-                  fontSize: "16px",
-                  fontWeight: 600
-                },
-                children: s.city
-              }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-                style: {
-                  ...dm,
-                  fontSize: "13px",
-                  color: "rgba(232,224,212,.8)",
-                  marginTop: "1px"
-                },
-                children: s.hotel
-              }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-                style: {
-                  ...dm,
-                  fontSize: "10.5px",
-                  color: col,
-                  marginTop: "2px"
-                },
-                children: s.country
-              }, void 0, false)]
-            }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-              style: {
-                textAlign: "right"
-              },
-              children: [/*#__PURE__*/_jsxDEV("div", {
-                style: {
-                  ...dm,
-                  fontSize: "20px",
-                  fontWeight: 600,
-                  color: "#e9b344"
-                },
-                children: s.nights
-              }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-                style: {
-                  ...dm,
-                  fontSize: "8px",
-                  letterSpacing: "1px",
-                  textTransform: "uppercase",
-                  color: "rgba(232,224,212,.35)"
-                },
-                children: "nights"
-              }, void 0, false)]
-            }, void 0, true)]
-          }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-            style: {
-              display: "flex",
-              gap: "6px",
-              alignItems: "center",
-              marginBottom: "8px",
-              flexWrap: "wrap"
-            },
-            children: [/*#__PURE__*/_jsxDEV("div", {
-              style: {
-                ...dm,
-                fontSize: "12.5px",
-                background: "rgba(255,255,255,.05)",
-                padding: "3px 9px",
-                borderRadius: "6px"
-              },
-              children: s.checkin
-            }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-              style: {
-                ...dm,
-                fontSize: "10px",
-                color: "rgba(232,224,212,.25)"
-              },
-              children: "\u2192"
-            }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-              style: {
-                ...dm,
-                fontSize: "12.5px",
-                background: "rgba(255,255,255,.05)",
-                padding: "3px 9px",
-                borderRadius: "6px"
-              },
-              children: s.checkout
-            }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-              style: {
-                marginLeft: "auto",
-                ...dm,
-                fontSize: "11.5px",
-                color: s.booked ? "#4ade80" : "#e9b344",
-                fontWeight: s.booked ? 600 : 400
-              },
-              children: [s.booked ? "\u2713 " : "", s.price]
-            }, void 0, true)]
-          }, void 0, true), /*#__PURE__*/_jsxDEV("p", {
-            style: {
-              ...dm,
-              fontSize: "11.5px",
-              lineHeight: 1.5,
-              color: "rgba(232,224,212,.55)"
-            },
-            children: s.note
-          }, void 0, false), s.bookAdvance && !s.booked && /*#__PURE__*/_jsxDEV("div", {
-            style: {
-              marginTop: "6px",
-              ...dm,
-              fontSize: "9px",
-              letterSpacing: "1px",
-              textTransform: "uppercase",
-              color: col,
-              opacity: .75
-            },
-            children: ["\u2605", " Book in advance"]
-          }, void 0, true)]
-        }, i, true);
-      })]
-    }, void 0, true), tab === "budget" && /*#__PURE__*/_jsxDEV("div", {
+          fontSize: "9px",
+          fontWeight: 600,
+          color: col,
+          whiteSpace: "nowrap",
+          textOverflow: "ellipsis",
+          overflow: "hidden"
+        }
+      }, seg.booked ? "\u2713 " : "", seg.trek ? "\uD83D\uDC0E " : "", seg.label));
+    }));
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...dm,
+      fontSize: "10px",
+      color: "rgba(232,224,212,.3)",
+      textAlign: "center",
+      margin: "6px 0 14px",
+      lineHeight: 1.6
+    }
+  }, "Solid bar = booked ", "\u00b7", " dashed = still to book ", "\u00b7", " changeover day shows both hotels ", "\u00b7", " tap any day for the plan"), selDay && /*#__PURE__*/React.createElement("div", {
+    className: "fb",
+    key: sel.m + "-" + sel.d,
+    style: {
+      background: "linear-gradient(135deg,#1a1a2e," + cc[selDay.country] + "12)",
+      border: "1px solid " + cc[selDay.country] + "33",
+      borderRadius: "14px",
+      padding: "18px",
+      maxWidth: "560px",
+      margin: "0 auto"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "flex-start",
+      marginBottom: "10px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...dm,
+      fontSize: "10px",
+      letterSpacing: "2px",
+      textTransform: "uppercase",
+      color: cc[selDay.country],
+      marginBottom: "4px"
+    }
+  }, sel.m === "jul" ? "July " + sel.d : "Aug " + sel.d, " ", "\u00b7", " ", cn[selDay.country]), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: "20px",
+      fontWeight: 600,
+      lineHeight: 1.2,
+      marginBottom: "2px"
+    }
+  }, ICON[selDay.icon], " ", selDay.label), /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...dm,
+      fontSize: "12px",
+      color: "rgba(232,224,212,.5)"
+    }
+  }, selDay.sub)), selNight && /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...dm,
+      fontSize: "10px",
+      color: "rgba(232,224,212,.45)",
+      textAlign: "right",
+      maxWidth: "120px",
+      lineHeight: 1.4
+    }
+  }, "\uD83C\uDFE8", " ", selNight.label)), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: "13px",
+      lineHeight: 1.7,
+      color: "rgba(232,224,212,.8)",
+      marginBottom: "12px"
+    }
+  }, selDay.detail), selDay.sights && selDay.sights.length > 0 && /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "rgba(15,52,96,.2)",
+      border: "1px solid rgba(15,52,96,.3)",
+      borderRadius: "8px",
+      padding: "10px 12px",
+      marginBottom: "10px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...dm,
+      fontSize: "9px",
+      letterSpacing: "2px",
+      textTransform: "uppercase",
+      color: "#4a90d9",
+      marginBottom: "6px"
+    }
+  }, "Don't miss"), selDay.sights.map((s, j) => /*#__PURE__*/React.createElement("div", {
+    key: j,
+    style: {
+      fontSize: "11.5px",
+      lineHeight: 1.4,
+      color: "rgba(232,224,212,.65)",
+      ...dm,
+      paddingLeft: "10px",
+      borderLeft: "2px solid rgba(74,144,217,.25)",
+      marginBottom: j < selDay.sights.length - 1 ? "5px" : 0
+    }
+  }, s))), selDay.tips && /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "rgba(233,179,68,.08)",
+      border: "1px solid rgba(233,179,68,.15)",
+      borderRadius: "8px",
+      padding: "10px 12px",
+      marginBottom: selDay.cost ? "10px" : 0
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...dm,
+      fontSize: "9px",
+      letterSpacing: "2px",
+      textTransform: "uppercase",
+      color: "#e9b344",
+      marginBottom: "5px"
+    }
+  }, "Tip"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: "11.5px",
+      lineHeight: 1.5,
+      color: "rgba(232,224,212,.7)",
+      ...dm
+    }
+  }, selDay.tips)), selDay.cost && /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...dm,
+      fontSize: "11px",
+      color: "rgba(232,224,212,.4)"
+    }
+  }, "Est. cost: ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: "#e9b344"
+    }
+  }, selDay.cost)))), tab === "stays" && /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "12px 16px 48px",
+      maxWidth: "640px",
+      margin: "0 auto"
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      ...dm,
+      fontSize: "12px",
+      color: "rgba(232,224,212,.45)",
+      marginBottom: "16px",
+      lineHeight: 1.6,
+      textAlign: "center"
+    }
+  }, "Bishkek apartment = home base for all of Kyrgyzstan. Leave your bag there during the trek + Issyk-Kul loop."), stays.map((s, i) => {
+    const col = ccStay[s.country] || "#e8e0d4";
+    return /*#__PURE__*/React.createElement("div", {
+      key: i,
       style: {
-        padding: "12px 16px 48px",
-        maxWidth: "640px",
-        margin: "0 auto"
-      },
-      children: [/*#__PURE__*/_jsxDEV("div", {
-        style: {
-          background: "rgba(255,255,255,.03)",
-          border: "1px solid rgba(255,255,255,.08)",
-          borderRadius: "12px",
-          padding: "18px",
-          marginBottom: "18px"
-        },
-        children: [/*#__PURE__*/_jsxDEV("div", {
-          style: {
-            ...dm,
-            fontSize: "9px",
-            letterSpacing: "2px",
-            textTransform: "uppercase",
-            color: "#e94560",
-            marginBottom: "6px"
-          },
-          children: "On-Ground Budget (flights booked!)"
-        }, void 0, false), /*#__PURE__*/_jsxDEV("div", {
-          style: {
-            fontSize: "30px",
-            fontWeight: 300,
-            marginBottom: "3px"
-          },
-          children: ["$", tL, " ", "\u2014", " $", tH]
-        }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-          style: {
-            ...dm,
-            fontSize: "11.5px",
-            color: "rgba(232,224,212,.4)"
-          },
-          children: "32 days. 3 countries. Horse trek + yurts + eagle hunters."
-        }, void 0, false)]
-      }, void 0, true), Object.entries(budgetSummary).map(([k, v]) => /*#__PURE__*/_jsxDEV("div", {
-        style: {
-          marginBottom: "14px",
-          padding: "0 4px"
-        },
-        children: [/*#__PURE__*/_jsxDEV("div", {
-          style: {
-            display: "flex",
-            justifyContent: "space-between",
-            ...dm,
-            fontSize: "12px",
-            marginBottom: "5px"
-          },
-          children: [/*#__PURE__*/_jsxDEV("span", {
-            style: {
-              color: "rgba(232,224,212,.55)"
-            },
-            children: v.label
-          }, void 0, false), /*#__PURE__*/_jsxDEV("span", {
-            style: {
-              color: "#e9b344"
-            },
-            children: ["$", v.low, "\u2013", "$", v.high]
-          }, void 0, true)]
-        }, void 0, true), /*#__PURE__*/_jsxDEV("div", {
-          style: {
-            height: "5px",
-            background: "rgba(255,255,255,.05)",
-            borderRadius: "3px",
-            overflow: "hidden"
-          },
-          children: /*#__PURE__*/_jsxDEV("div", {
-            style: {
-              height: "100%",
-              width: v.high / tH * 100 + "%",
-              background: "linear-gradient(90deg,#e94560,#e9b344)",
-              borderRadius: "3px"
-            }
-          }, void 0, false)
-        }, void 0, false)]
-      }, k, true)), /*#__PURE__*/_jsxDEV("div", {
-        style: {
-          borderTop: "1px solid rgba(255,255,255,.08)",
-          paddingTop: "14px",
-          marginTop: "8px",
-          ...dm,
-          fontSize: "11px",
-          lineHeight: 1.8,
-          color: "rgba(232,224,212,.45)"
-        },
-        children: [/*#__PURE__*/_jsxDEV("strong", {
-          style: {
-            color: "rgba(232,224,212,.65)"
-          },
-          children: "Visa costs:"
-        }, void 0, false), " $0 ", "\u2014", " Dutch passport visa-free everywhere", /*#__PURE__*/_jsxDEV("br", {}, void 0, false), /*#__PURE__*/_jsxDEV("strong", {
-          style: {
-            color: "rgba(232,224,212,.65)"
-          },
-          children: "International flights:"
-        }, void 0, false), " Booked (Batik Air + Pegasus)", /*#__PURE__*/_jsxDEV("br", {}, void 0, false), /*#__PURE__*/_jsxDEV("strong", {
-          style: {
-            color: "rgba(232,224,212,.65)"
-          },
-          children: "Longest travel day:"
-        }, void 0, false), " ~6 hrs (no 16-hr days)", /*#__PURE__*/_jsxDEV("br", {}, void 0, false), /*#__PURE__*/_jsxDEV("strong", {
-          style: {
-            color: "rgba(232,224,212,.65)"
-          },
-          children: "Not included:"
-        }, void 0, false), " insurance, alcohol, shopping"]
-      }, void 0, true)]
-    }, void 0, true)]
-  }, void 0, true);
+        background: s.booked ? "rgba(233,179,68,.06)" : "rgba(255,255,255,.03)",
+        border: "1px solid " + (s.booked ? "rgba(233,179,68,.2)" : "rgba(255,255,255,.06)"),
+        borderRadius: "12px",
+        padding: "14px 16px",
+        marginBottom: "10px"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+        marginBottom: "4px"
+      }
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      style: {
+        fontSize: "16px",
+        fontWeight: 600
+      }
+    }, s.city), /*#__PURE__*/React.createElement("div", {
+      style: {
+        ...dm,
+        fontSize: "13px",
+        color: "rgba(232,224,212,.8)",
+        marginTop: "1px"
+      }
+    }, s.hotel), /*#__PURE__*/React.createElement("div", {
+      style: {
+        ...dm,
+        fontSize: "10.5px",
+        color: col,
+        marginTop: "2px"
+      }
+    }, s.country)), /*#__PURE__*/React.createElement("div", {
+      style: {
+        textAlign: "right"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        ...dm,
+        fontSize: "20px",
+        fontWeight: 600,
+        color: "#e9b344"
+      }
+    }, s.nights), /*#__PURE__*/React.createElement("div", {
+      style: {
+        ...dm,
+        fontSize: "8px",
+        letterSpacing: "1px",
+        textTransform: "uppercase",
+        color: "rgba(232,224,212,.35)"
+      }
+    }, "nights"))), /*#__PURE__*/React.createElement("div", {
+      style: {
+        display: "flex",
+        gap: "6px",
+        alignItems: "center",
+        marginBottom: "8px",
+        flexWrap: "wrap"
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        ...dm,
+        fontSize: "12.5px",
+        background: "rgba(255,255,255,.05)",
+        padding: "3px 9px",
+        borderRadius: "6px"
+      }
+    }, s.checkin), /*#__PURE__*/React.createElement("div", {
+      style: {
+        ...dm,
+        fontSize: "10px",
+        color: "rgba(232,224,212,.25)"
+      }
+    }, "\u2192"), /*#__PURE__*/React.createElement("div", {
+      style: {
+        ...dm,
+        fontSize: "12.5px",
+        background: "rgba(255,255,255,.05)",
+        padding: "3px 9px",
+        borderRadius: "6px"
+      }
+    }, s.checkout), /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginLeft: "auto",
+        ...dm,
+        fontSize: "11.5px",
+        color: s.booked ? "#4ade80" : "#e9b344",
+        fontWeight: s.booked ? 600 : 400
+      }
+    }, s.booked ? "\u2713 " : "", s.price)), /*#__PURE__*/React.createElement("p", {
+      style: {
+        ...dm,
+        fontSize: "11.5px",
+        lineHeight: 1.5,
+        color: "rgba(232,224,212,.55)"
+      }
+    }, s.note), s.bookAdvance && !s.booked && /*#__PURE__*/React.createElement("div", {
+      style: {
+        marginTop: "6px",
+        ...dm,
+        fontSize: "9px",
+        letterSpacing: "1px",
+        textTransform: "uppercase",
+        color: col,
+        opacity: .75
+      }
+    }, "\u2605", " Book in advance"));
+  })), tab === "budget" && /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: "12px 16px 48px",
+      maxWidth: "640px",
+      margin: "0 auto"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "rgba(255,255,255,.03)",
+      border: "1px solid rgba(255,255,255,.08)",
+      borderRadius: "12px",
+      padding: "18px",
+      marginBottom: "18px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...dm,
+      fontSize: "9px",
+      letterSpacing: "2px",
+      textTransform: "uppercase",
+      color: "#e94560",
+      marginBottom: "6px"
+    }
+  }, "On-Ground Budget (flights booked!)"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: "30px",
+      fontWeight: 300,
+      marginBottom: "3px"
+    }
+  }, "$", tL, " ", "\u2014", " $", tH), /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...dm,
+      fontSize: "11.5px",
+      color: "rgba(232,224,212,.4)"
+    }
+  }, "32 days. 3 countries. Horse trek + yurts + eagle hunters.")), Object.entries(budgetSummary).map(([k, v]) => /*#__PURE__*/React.createElement("div", {
+    key: k,
+    style: {
+      marginBottom: "14px",
+      padding: "0 4px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      ...dm,
+      fontSize: "12px",
+      marginBottom: "5px"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: "rgba(232,224,212,.55)"
+    }
+  }, v.label), /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: "#e9b344"
+    }
+  }, "$", v.low, "\u2013", "$", v.high)), /*#__PURE__*/React.createElement("div", {
+    style: {
+      height: "5px",
+      background: "rgba(255,255,255,.05)",
+      borderRadius: "3px",
+      overflow: "hidden"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      height: "100%",
+      width: v.high / tH * 100 + "%",
+      background: "linear-gradient(90deg,#e94560,#e9b344)",
+      borderRadius: "3px"
+    }
+  })))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      borderTop: "1px solid rgba(255,255,255,.08)",
+      paddingTop: "14px",
+      marginTop: "8px",
+      ...dm,
+      fontSize: "11px",
+      lineHeight: 1.8,
+      color: "rgba(232,224,212,.45)"
+    }
+  }, /*#__PURE__*/React.createElement("strong", {
+    style: {
+      color: "rgba(232,224,212,.65)"
+    }
+  }, "Visa costs:"), " $0 ", "\u2014", " Dutch passport visa-free everywhere", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", {
+    style: {
+      color: "rgba(232,224,212,.65)"
+    }
+  }, "International flights:"), " Booked (Batik Air + Pegasus)", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", {
+    style: {
+      color: "rgba(232,224,212,.65)"
+    }
+  }, "Longest travel day:"), " ~6 hrs (no 16-hr days)", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("strong", {
+    style: {
+      color: "rgba(232,224,212,.65)"
+    }
+  }, "Not included:"), " insurance, alcohol, shopping")));
 }
-
-var root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(React.createElement(App));
+    var root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(React.createElement(App));
+  } catch (e) {
+    document.getElementById("root").innerHTML = '<div class="err">App error:\n\n' + (e && e.message ? e.message : e) + '</div>';
+  }
+})();
 </script>
 </body>
 </html>
